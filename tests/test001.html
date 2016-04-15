@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="node_modules/babel-core/browser.js"></script>
+</head>
+<body>
+<button id="test">test</button>
+<script type="text/babel">
+document.getElementById('test').addEventListener('click', function(e) {
+	class a {
+		get name() {return 'fillano'}
+	}
+	var b = new a();
+	alert(b.name);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1176 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ECMAScript 2015快速攻略</title>
+
+		<meta name="description" content="A course on ECMAScript 2015">
+		<meta name="author" content="Fillano(Hsu Ping Feng)">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<style>
+		.mynote {
+			color: #C97;
+			text-decoration: underline;
+			font-weight: bolder;
+		}
+		</style>
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+<!--
+				<section data-markdown>
+					<script type="text/template">
+					</script>
+				</section>
+-->
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+<!-- #title -->
+				<section data-markdown>
+					<script type="text/template">
+					#ECMAScript 2015
+					#快速攻略
+
+					&nbsp;
+
+					&nbsp;
+
+					###Fillano
+					29th, August, 2015
+					</script>
+				</section>
+<!-- ##introduce -->
+				<section data-markdown>
+					<script type="text/template">
+					##自我介紹
+					* 本名：馮旭平
+					* 渾名：Fillano、費大公...
+					* 出沒地點：iT邦幫忙、FB、Twitter、Plurk、G+...
+					* Javascript愛好者
+					* 卑微軟體工程師，工作花在網站後端略多於前端
+					* 主要使用語言有Java、PHP、C#、Javascript、HTML、CSS等
+					</script>
+				</section>
+<!-- ##關於Flying ITMan -->
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						##關於Flying ITMan
+						* 幾位常在IT邦分享的邦友討論，延讀去年[IT技術講堂]的活動。我們計劃今年更完整的IT技術分享活動
+						* Simon和小雨大、老鷹及費大公四人，今年就每個月一個主題的方式來面對面分享我們在 IT 技術上的實務經驗。
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						##Flying ITMan四大主軸
+						1. Linux 平台及 MySQL 資料庫系統管理，由小雨大和老鷹來主持，將著重在進階的Linux 系統管理及 MySQL 資料庫效能調校等技術分享。
+						2. Windows Server 平台及 SQL Server資料庫系統管理，暫時由Simon來主持，分享的重點和小雨大及老鷹在 Linux及 MySQL 相同，只是在微軟產品方面而已。
+						3. Erlang 、 Golang 和平行處理技術，由小雨大來分享在 Erlang 、 Golang 的設計經驗，以及平行處理架構設計等等。
+						4. Web 前後端開發技術分享，由費大公和老鷹來分享 Web Server 性能調校及如何設計有效率的網站前後端程式。
+						5. 不時還有學有專精的邦友分享各種心得
+						</script>
+					</section>
+				</section>
+<!-- ##大綱 -->
+				<section data-markdown>
+					<script type="text/template">
+					##大綱
+					* 課程目標
+					* 什麼是ECMAScript 2015
+					* Javascript 版本的演進
+					* ECMAScript 2015的執行環境
+					* 必須知道的ECMA-262 Edition 5 更新
+					* 快速攻略ECMAScript 2015
+						* 新的型別
+						* 新的語法
+						* 新的核心物件
+						* 原有核心物件的加強
+					* ECMAScript 2015之後？
+					</script>
+				</section>
+<!-- #課程目標 -->
+				<section data-markdown>
+					<script type="text/template">
+					#課程目標
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					* 時間：約三小時
+					* 目標：廣泛觸及ECMAScript 2015更新的功能
+					* 示例：簡單的程式碼，用來理解新功能
+					* 特殊效果：如果在瀏覽器可執行，會出現執行按鈕
+					</script>
+				</section>
+<!-- #什麼是ECMAScript -->
+				<section data-markdown>
+					<script type="text/template">
+					#什麼是ECMAScript 2015
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					* ECMA是European Computer Manufacturers Association的簡寫
+					* 他是一個負責制定<span class="mynote">標準</span>的國際組織
+					* Javascript這個程式語言的標準，是ECMA制定的，標準的編號是ECMA-262
+					* 這個標準制定了Javascript的語法與核心物件，也就是ECMAScript
+					* 所有的Javascript執行環境，一定使用相同的語法，也一定有這些核心物件
+					* 參考：<a href="https://gist.github.com/fillano/880e6853cd808f8b4db2" target="_blank">ECMAScript 2015課程簡介</a>
+					</script>
+				</section>
+<!-- #Javascript的演進 -->
+				<section data-markdown>
+					<script type="text/template">
+					#Javascript版本的演進
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					##1999年：ECMA-262 Edition 3
+					* 使用了十年的版本
+					* 大家所熟悉的Javascript
+					* 歷經了瀏覽器環境的激烈變化
+						* 兩個瀏覽器的競爭（IE vs Netscape）
+						* 一個瀏覽器的獨霸（IE）
+						* AJAX使得網頁應用開始蓬勃發展
+						* 新的競爭者的出現（Mozilla, Firefox, Opera, Chrome...）
+						* 百家爭鳴的局面（目前）
+					* 新的問題逐漸浮現：安全性
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					##2009年：ECMA-262 Edition 5
+					* 基於某些原因，<span class="mynote">某規格</span>被擱置，部分規格留到ES6實現
+					* 對於ES3的小改進，主要是基於安全方面的需求
+						* strict模式
+						* 新增JSON物件
+						* 更安全的Object物件
+						* Array物件的新功能
+						* String物件的新功能
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					##2015年：ECMAScript 2015
+					* 目前最新的版本
+					* 大幅更新語法與核心物件
+					* 用規格書頁數來看更新幅度
+						* ECMA-262 Edition 3：191頁
+						* ECMA-262 Edition 5：252頁
+						* ECMA-262 Edition 5.1：258頁
+						* ECMAScript 2015：566頁
+					</script>
+				</section>
+<!-- #ECMAScript 2015的執行環境 -->
+				<section data-markdown>
+					<script type="text/template">
+					#ECMAScript 2015的執行環境
+					</script>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						##執行環境的相容性
+						* 目前的瀏覽器與伺服器端環境，都還只有有限的支援
+						* 每個執行環境跟ECMAScript 2015的相容性都不同Orz
+						* 不過相容性持續改善中
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						##相關資料
+						* 最佳相容性參考：<a href="http://kangax.github.io/compat-table/es6/" target="_blank">ECMASCript 5/6/7/non-standard 相容性列表</a>
+							* 涵蓋所有可能的執行環境
+							* 即時偵測使用瀏覽器的支援程度
+							* 可以直接檢視測試程式，學習相關語法
+						* 最佳線上文件：MDN（Mozilla Developer Network）
+							* 涵蓋ECMAScript 2015之後的語法與核心物件
+							* 說明與範例非常詳細，錯誤較少
+							* 包含在哪個版本的規格書納入，哪個版本的瀏覽器開始支援等等資訊
+						</script>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						##使用Babel執行ECMAScript 2015
+						* 網站：<a href="https://babeljs.io/" target="_blank">Babel</a>
+						* Babel是由James Kyle獨立開發出的6to5逐漸進化出來的Compiler工具
+						* 他可以將ECMAScript 2015語法的程式，轉譯成執行環境可以執行的Javascript
+						* 這是目前支援ECMAScript 2015最完整的環境
+						* 關於他支援的ECMAScript 2015語法，請參考前頁的相容性列表
+						</script>
+					</section>
+					<section data-markdown>
+						<pre><code data-trim>
+						</code></pre>
+						<script type="text/template">
+						##在瀏覽器環境運行Babel
+						* 安裝node.js
+						* 透過npm安裝babel-core模組
+						~~~
+npm install babel
+						~~~
+						* 引入node_modules/babel-core/browser.js
+						* 然後在type屬性設定為text/babel的script區塊中撰寫ECMAScript 2015程式
+<pre><code data-trim>
+&lt;script type="text/javascript" src="node_modules/babel-core/browser.js"&gt;&lt;/script&gt;         
+&lt;script type="text/babel"&gt;
+class a {
+	get name() {return 'fillano'}
+}
+var b = new a();
+console.log(b.name);
+&lt;/script&gt;
+</code></pre>
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						##在瀏覽器環境運行Babel Polyfill
+						* 安裝node.js
+						* 透過npm安裝babel-core模組
+						~~~
+npm install babel-core
+						~~~
+						* 引入node_modules/babel-core/browser-polyfill.js
+						* 在其後的script區塊中執行ECMAScript 2015程式
+<pre><code data-trim>
+&lt;script type="text/javascript" src="node_modules/babel-core/browser.js"&gt;&lt;/script&gt;         
+&lt;script type="text/script"&gt;
+"use strict";
+class a {
+	get name() {return 'fillano'}
+}
+var b = new a();
+console.log(b.name);
+&lt;/script&gt;
+</code></pre>
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						##在node.js環境運行Babel
+						* 透過npm安裝babel-node模組
+						~~~
+npm install -g babel
+						~~~
+						* 透過babel編譯程式（結果會導到標準輸出）
+						~~~
+babel test.js
+						~~~
+						* 或是在程式中載入babel/register模組
+						~~~javascript
+require('babel/register');
+						~~~
+						* 之後就可以在其他模組中撰寫ECMAScript 2015程式，babel會自動編譯並執行
+						</script>
+					</section>
+				</section>
+<!-- #必須知道的ECMA-262 Edition 5更新 -->
+				<section data-markdown>
+					<script type="text/template">
+					#必須知道的ECMA-262 Edition 5更新
+					</script>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						##strict mode（嚴格模式）
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							##語法
+							~~~javascript
+function x() {
+	"use strict";
+	//之後的程式都在strict模式下運作
+}
+							~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						##嚴格模式的作用
+						* 字面上的意思，是會用更嚴格的方式檢查**語法**
+						* 更重要的是，日後規格中有語法相容性問題的新東西，可以規定只能在嚴格模式中執行，以解決**相容性**問題
+						</script>
+					</section>
+<script type="text/javascript">
+function ex0001() {
+	(function() {a=3;})();
+	alert(a);
+}
+function ex0002() {
+	(function() {
+		"use strict";
+		try {
+			b = 4;
+		} catch(e) {
+			alert(e);
+		}
+	})();
+}
+</script>
+					<section data-markdown>
+						<script type="text/template">
+						##例子
+						* 一般<button onclick="ex0001()">測試ex0001</button>
+						~~~javascript
+(function() {
+    a = 3;
+})();
+alert(a);// 3
+						~~~
+						* 嚴格模式<button onclick="ex0002()">測試ex0002</button>
+						~~~javascript
+(function() {
+    "use strict";
+    try {
+        b = 4; //跳出ReferenceError;    
+    } catch(e) {
+        alert(e);
+    }
+})();
+						~~~
+						</script>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						##新增JSON物件
+						* 有了原生的JSON物件
+						* 透過JSON.parse(string)，把JSON字串解析成物件
+						* 透過JSON.stringify(object)，把物件轉成JSON字串
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###剖析JSON字串
+						~~~javascript
+var str = "[1,2,3]";
+var arr = JSON.parse(str);//arr = [1,2,3]
+var str1 = '{"id":"A123456789","name":"fillano"}';
+var obj = JSON.parse(str1);//obj = {id:'A123456789',name:'fillano'}
+						~~~
+						</script>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						##更安全的Object物件
+						* 引入定入物件屬性的新語法
+						* 可以完全掌控物件生成
+						* 可以控制物件的存取與修改
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###屬性定義語法(Property Descriptor)
+						~~~javascript
+{
+    property1: {
+        value: '2',//指派屬性值，預設值為undefined
+        configurable: true,//屬性定義是否可被變動，
+        //例如被delete或使用descriptor重新定義，預設為false
+        enumerable: true,//是否可列舉，預設為false
+        writable: true,//是否可寫入，預設為false
+        get() {/* getter function body*/},
+        set(v) {/* setter function body*/}
+    }
+}
+						~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###Object.defineProperties(obj, [descriptors])
+						* 為obj定義properties
+						~~~javascript
+var obj = {};
+Object.defineProperties(
+    obj,
+    {
+        id:{
+            value: 1
+        },
+        name:{
+            value: 'fillano'    
+        }
+    }
+);
+console.log(obj.id);//1
+console.log(obj.name);//'fillano'
+						~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###Object.create(proto, [descriptors])
+						* 產生一個新物件，prototype是proto，並且透過descriptor定義屬性
+						~~~javascript
+var a = {id: 1, name: 'fillano'};
+var b = Object.create(
+	a, 
+	{
+		gender: {
+			value: 'male', 
+			enumerable: true
+		}
+	}
+);
+console.log(b);//{gender: 'male'}
+console.log(b.__proto__);//{id: 1, name: 'fillano'}
+						~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###Object.getOwnPropertyDescriptor(obj, proprotyName)
+						* 取得物件屬性的定義
+						~~~javascript
+var a = {id: 1, name: 'fillano'};
+console.log(Object.getOwnPropertyDescriptor(a, 'name'));      
+// { value: 'fillano', 
+//	writable: true, 
+//	enumerable: true, 
+//	configurable: true }
+						~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###改變存取權限
+						* Object.preventExtensions(obj)：obj無法新增屬性
+						* Object.seal(obj)：obj無法新增、刪除屬性
+						* Object.freeze(obj)：obj無法新增、刪除屬性，也無法改變屬性值
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###偵測存取權限
+						* Object.isExtensible(obj)：obj是否無法新增屬性
+						* Object.isSealed(obj)：obj是否無法新增、刪除屬性
+						* Object.isFrozen(obj)：obj是否無法新增、刪除屬性，也無法改變屬性值
+						* Object.prototype.propertyIsEnumerable(prop)：屬性是否無法透過for...in列舉
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###取得物件屬性
+						* Object.keys(obj)：取得obj可列舉屬性名稱陣列（不包含prototype）
+						* Object.getOwnPropertyNames(obj)：取得obj所有屬性名稱陣列（不包含prototype）
+						</script>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						##Array物件的新功能
+						* 新增函數式的Array操作方法
+						* 偵測物件是否為Array
+						* 搜尋陣列
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###新增函數式的Array操作方法
+						* Array.prototype.forEach()
+						* Array.prototype.map()
+						* Array.prototype.every()
+						* Array.prototype.some()
+						* Array.prototype.filter()
+						* Array.prototype.reduce()
+						* Array.prototype.reduceRight()
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###其他
+						* 判斷是否為陣列：
+							* Array.isArray(obj)
+						* 搜尋陣列：
+							* Array.prototype.indexOf(value, from)
+							* Array.prototype.lastIndexOf(value, from)
+						</script>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						##String物件的新功能
+						* String.prototype.trim()：這個不用解釋了
+						</script>
+					</section>
+				</section>
+<!-- #快速攻略ECMAScript 2015 -->
+				<section data-markdown>
+					<script type="text/template">
+					#快速攻略ECMAScript 2015
+					</script>
+				</section>
+<!-- ##新的型別 -->
+				<section data-markdown>
+					<script type="text/template">
+					##新的型別
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Symbol
+					* 是一個<span class="mynote">不可變</span>的資料型別
+					* 通常用來定義，或是<span class="mynote">預先定義</span>物件的屬性，尤其在不同物件有類似的操作方法時
+					* 他的包覆物件是Symbol
+					* 例如Symbol.iterator
+					~~~javascript
+var a = 'fillano';
+var b = a[Symbol.iterator]();//取得iterator
+console.log(b.next());//{value: 'f', done: false}
+					~~~
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###規格型別：
+					* 聽聽就好，這些是在要讀規格書時才會用到的
+					* Record：具有欄位的物件，用來記錄內部演算邏輯的過程或狀態等
+					* Data Block：單位長度為byte的資料序列
+					</script>
+				</section>
+<!-- ##新的語法 -->
+				<section data-markdown>
+					<script type="text/template">
+					##新的語法
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###函數預設參數
+					* 可以在函數定義指派預設值給參數，當傳遞給函數的值是undefined，就會使用預設值
+					~~~javascript
+function c(a=1, b=2) {return a*b}
+console.log(c(3));// 6
+console.log(c(undefined, 4));// 4
+					~~~
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###其餘(rest)的參數
+					* 利用...，將多餘的參數轉為陣列，存放在參數中（啥）
+					~~~javascript
+function j(a='a', ...b) {return a + b.join('')}
+console.log(j('f','i','l','la','no'));//'fillano'
+					~~~
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###spread運算子
+					* ...除了使用在function參數定義，也可以在呼叫、Array實字、destructuring使用
+					* 函數呼叫
+					~~~javascript
+var a = ['i','ll','an'];
+console.log(j('f', ...a, 'o'));// 'fillano'
+					~~~
+					* 陣列串接
+					~~~javascript
+var a = [3,4,5];
+var b = [1,2,...a,6];//[1,2,3,4,5,6]
+					~~~
+					* destructuring留到下一頁
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###destructuring
+					* 用來拆解物件或陣列，以取得其中的值........
+					~~~javascript
+var {a,b} = {a:0, b:'fillano'};//a=1, b='fillano'			
+					~~~
+					~~~javascript
+var [a,,b] = [1,2,3];//a=1, b=3                     
+					~~~
+					~~~javascript
+var [a, ...b] = [1,2,3];//a=1, b=[2,3]
+					~~~
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###object實字(literal)
+					* 簡短屬性設定
+					~~~javascript
+var name = 'fillano';
+var person = {id: 1, name};
+//{id: 1, name: 'fillano'}
+					~~~
+					* 簡短方法設定
+					~~~javascript
+var obj = {
+	name: 'fillano',
+	show() {alert(this.name)}
+}
+					~~~
+					* 使用運算過的值做屬性名稱
+					~~~javascript
+var foo = 'foo';
+var obj = {[foo]: 'bar'};
+console.log(obj.foo);// 'bar'
+					~~~
+					</script>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						###for...of迴圈與iterator
+						* iterator是一個<span class="mynote">介面</span>，許多核心物件有這個介面
+						* 透過呼叫這個介面的next(value)方法，可以取得迭代的結果，同時傳送value給他
+						* 更簡單的做法，是透過for...of迴圈來操作
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						~~~javascript
+function gen() {
+    var arr=[1,2,3];
+    var i=0;
+    return {
+        [Symbol.iterator]() {
+            return {
+                next() {
+                    if(i<arr.length) {
+                        return {value: arr[i++], done: false};
+                    } else {
+                        return {value: null, done: true}
+                    }
+                }
+            };
+        }
+    };
+}
+						~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						~~~javascript
+for(var i of gen()) {console.log(i)}
+//1
+//2
+//3
+						~~~
+						</script>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						###generator
+						* generator是一種函數，內部可以用yield中斷執行並回傳值
+						* generator函數執行的結果也是一個iterator，所以可以透過for...of迴圈來操作
+						* 如果yeild要回傳的也是iterator，可以利用yield *，這樣for...of迴圈會先把他跑完
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						~~~javascript
+function *gen() {
+    var arr = [1,2,3];
+    for(var i=0;i<arr.length;i++) {
+        yield arr[i];
+    }
+}
+for(var i of gen()) {console.log(i)}
+//1
+//2
+//3
+						~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						~~~javascript
+function *gen() {
+	yield *too();
+    var arr = [1,2,3];
+    for(var i=0;i<arr.length;i++) {
+        yield arr[i];
+    }
+}
+function *too() {
+    var arr = [4,5,6];
+    for(var i=0;i<arr.length;i++) {
+        yield arr[i];
+    }
+}
+for(var i of gen()) {console.log(i)}
+//4, 5, 6, 1, 2, 3
+						~~~
+						</script>
+					</section>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###範本字串(template string)
+					* 用``來定義範本字串
+					* 字串中有${a}，就會被變數a取代
+					* 範本字串可以跨行
+					~~~javascript
+function hello(name) {
+    return `Hello ${name},
+    what a nice day.`;
+}
+console.log(hello('fillano'));
+// Hello fillano,
+// what a nice day.
+					~~~
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###block scope
+					* 在ECMAScript 2015之前，沒有block scope這個東西，所以
+					~~~javascript
+function ex() {
+	for(var i=0; i<3; i++) {}
+	console.log(i);
+}
+ex();// 3
+					~~~
+					* 使用let來宣告變數時，變數只有在{}的scope內有效
+					~~~javascript
+function ex1() {
+	for(let i=0; i<3; i++) {}
+	console.log(i);
+}
+ex1();//ReferenceError
+					~~~
+					* 同樣有block scope，用const宣告的變數，無法改變
+					</script>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						###class
+						* 現在可以用class的語法來定義物件的constructor函數
+						* class語法使用簡短的方式來定義方法
+						* 使用constructor來定義constructor
+						* 使用extends來繼承父類
+						* 使用super可以調用父類的方法
+						* 使用static可以定義靜態方法
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						####class的宣告及使用
+						~~~javascript
+"use strict";
+class A {
+    constructor(_name) {
+        this.name = _name;
+    }
+    showName() {
+        console.log(this.name)
+    }
+    static showMe() {
+        console.log('A');
+    }
+}
+var a = new A('fillano');
+a.showName();// 'fillano'
+A.showMe();// 'A'
+						~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						####class的宣告及使用
+						~~~javascript
+class B extends A {
+    constructor(_name, _gender) {
+        super(_name);
+        this.gender = _gender;
+    }
+    showGender() {
+        super.showName();
+        console.log('is a ' + this.gender);
+    }
+    static showMe() {
+        console.log('B')
+    }
+}
+var b = new B('Janet', 'female');
+b.showGender();
+// 'Janet'
+// 'is a female'
+						~~~
+						</script>
+					</section>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###arrow function
+					* 使用arrow function可以簡化程式
+					* ECMAScript使用粗的arrow，=>
+					~~~javascript
+var a = [1,2,3,4,5,6,7,8].filter(x=>x%2===0);
+console.log(a);//[2,4,6,8]
+					~~~
+					* 多個參數時，使用括號把參數括起來（用spread也通）
+					~~~javascript
+var a = [2,4,6,8,1,3,5,7].filter((x,y)=>y%2===0);
+console.log(a);//[4,8,3,7]
+					~~~
+					* 如果只有一個expression，回傳值就是計算結果，不需要加上return
+					* 多行的話，需要加上大括號，回傳值也需要使用return來回傳
+					</script>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						###tail call
+						* 這個其實在實際寫程式時，不會直接接觸
+						* 不過規格書有定義，怎樣的expression算是tail call
+						* 遞迴時，tail call可以做最佳化來加速遞迴運算
+						* 可以用Babel跑簡單的遞迴：
+						~~~javascript
+function r(n) {
+	if(n<0) {
+		return 'done';
+	} else {
+		return r(--n);
+	}
+}
+console.log(r(10));
+						~~~
+						* Babel會把它編譯成（下一頁）
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						~~~javascript
+function r(_x) {
+	var _again = true;
+
+	_function: while (_again) {
+		var n = _x;
+		_again = false;
+
+		if (n > 0) {
+			return 'done';
+		} else {
+			_x = --n;
+			_again = true;
+			continue _function;
+		}
+	}
+}
+console.log(r(10));
+						~~~
+						</script>
+					</section>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###unicode支援
+					* 在ECMAScript 2015之前，Javascript只支援UTF-8
+					* 在ECMAScript 2015之後，Javascript會支援unicode以及他的escape方法
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###核心物件subclassing
+					* 在ECMAScript 2015，一些核心物件可以被繼承，例如Date
+					~~~javascript
+'use strict';
+class MyDate extends Date {
+	constructor() {
+		super();
+	}
+	make() {
+		return 'Make my Day => ' + this.toString();
+	}
+}
+var d = new MyDate();
+console.log(d.make());
+//Make my Day => Sat Aug 29 2015 10:57:30 GMT+0800 (CST)
+					~~~
+					</script>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						###模組
+						* ECMAScript 2015定義了標準的模組語法
+						* 跟commonjs還有AMD不一樣...
+						* 在模組中，使用<span class="mynote">export</span>定義模組要輸出的東西
+						* 在主程式中，使用<span class="mynote">import</span>來引用模組功能
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						* 簡單的模組定義
+						~~~javascript
+var foo = 'bar';
+export default foo;
+						~~~
+						* 使用模組（假設上述模組檔名為test011mc.js）
+						~~~javascript
+import foo from "./test011mc";
+console.log(foo);// 'bar'
+						~~~
+						</script>
+					</section>
+				</section>
+<!-- ##新的核心物件 -->
+				<section data-markdown>
+					<script type="text/template">
+					##新的核心物件
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###typed array
+					* 最早是由WebGL團隊制定的規格
+					* 透過typed array，可以存取binary資料
+					* Typed Array主要是兩種物件
+						* ArrayBuffer：單位長度固定的binary序列
+						* DataView：表示要用怎樣的單位長度來存取ArrayBuffer
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Collections
+					* ECMAScript 2015定義了一組集合物件，各自有不同的用途
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					####Map
+					* 有點像Object，可以存放key/value
+					* 跟Object不一樣的是，key可以是primitive value或是任意的物件
+					* 透過Map.prototype.set(key, value)來把key/value存入
+					* 透過Map.prototype.get(key)來取得key對應的value
+					* 透過Map.prototype.delete(key)來移除存入的key/value
+					* 透過Map.prototype.keys()取得所有的key
+					* 透過Map.prototype.values()取得所有的value
+					* 可以透過for...of迴圈來迭代操作，每次取得的是一個[key,value]陣列
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					####Set
+					* 集合，看起來有點像陣列，不過他的元素不會重複
+					* 可以存放任意的primitive value或是物件
+					* 透過Set.prototype.add(value)把值存入集合
+					* 透過Set.prototype.has(value)來判斷集合中是否已經有這個值
+					* 透過Set.prototype.delete(value)來移除集合中的value
+					* 透過Set.prototype.values()取得集合中所有的值
+					* 可以透過for...of迴圈來迭代操作
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					####WeakMap
+					* 類似Map，但是他使用的key不能是primitive value，例如String、Number等
+					* 物件可以被垃圾收集，所以WeakMap使用上比較不會造成Memory Leak
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					####WeakSet
+					* 類似Set，但是不能存入primitive value
+					* 同樣有避免Memory Leak的用處
+					</script>
+				</section>
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+						###Proxy
+						* 用來產生動態代理的物件
+						* 透過new Proxy(obj, handler);來取得代理物件
+						* handler是一個物件，只要實作其中的不同trap，就可以實現這些操作的動態代理
+						~~~javascript
+var obj = {id: 1, name: 'fillano'};
+var handler = {
+	get: function(target, name) {
+		if(!!target[name]) {
+			console.log(name + ' intercepted.');
+			return target[name];
+		}
+	}
+}
+var p = new Proxy(obj, handler);
+console.log(p.id);
+// id intercepted.
+// 1
+						~~~
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						####可使用的trap
+						* getPrototypeOf
+						* setPrototypeOf
+						* isExtensible
+						* preventExtensions
+						* getOwnPropertyDescriptor
+						* defineProperty
+						* has
+						* get
+						* set
+						* ....請參考MDN
+						</script>
+					</section>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Reflect
+					* 提供不同的方法，可以透過這些方法操作物件
+					* 可使用的方法類似Proxy的trap
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Promise
+					* 用來解決非同步造成的流程控制問題
+					* 支援exception機制，當exception發生，不會停止執行，而是觸發reject
+					* 用Promise.prototype.then()來處理執行結果，如果返回Promise，就可以一直用then串接
+					* 簡單的Promise
+					~~~javascript
+new Promise(function(resolve, reject) {
+	setTimeout(function() {resolve('p1 ok')}, 1000);
+}).then(function(result) {
+	console.log(result);
+	return new Promise(function(resolve, reject) {
+		setTimeout(function() {resolve('p2 ok')}, 1000);
+	});
+}).this(function(result) {
+	console.log(result);
+});
+					~~~
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Symbol
+					* symbol是一個不可變得物件型別，可以透過Symbol來產生與操作
+					* 核心物件之間有一些共通的操作模式，可以經由「內建」的Symbol來存取
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###內建的Symbol
+					</script>
+				</section>
+<!-- ##原有核心物件的加強 -->
+				<section data-markdown>
+					<script type="text/template">
+					##原有核心物件的加強
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Object
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###function
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###String
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###RegExp
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Array
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Number
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+					###Math
+					</script>
+				</section>
+<!-- #ECMAScript 2015之後？ -->
+				<section data-markdown>
+					<script type="text/template">
+					#ECMAScript 2015之後？
+					</script>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
